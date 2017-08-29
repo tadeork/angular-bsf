@@ -1,0 +1,17 @@
+<!-- Mostrar el contenido de cada equipo -->
+<h2>Equipo {{team}}</h2>
+
+<!-- <button type="button" (click)="newPlayer()">Agregar</button> -->
+<div *ngIf="newP">
+  <label name="name">Nombre</label> <input name="name" type="text"> 
+  <!-- <label name="age">Edad</label> <input name="age" type="text" [(ngModel)]="name"> -->
+  <button type="button">Agregar</button>
+</div>
+
+<ul class="players">
+  <!-- cada jugador debe ser editable -->
+  <li *ngFor="let player of roster">
+    <span class="badge">{{ player.id }}</span> {{ player.name }}
+    <button type="button" (click)="removePlayer(player)">Eliminar</button>
+  </li>
+</ul>
