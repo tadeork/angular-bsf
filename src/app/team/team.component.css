@@ -1,0 +1,14 @@
+.team-btfl {
+    float: left;
+    padding: 5px;
+}
+
+.team-btfl h2 {
+    font-family: Arial;
+}
+
+.team-btfl input {
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 5px 0 10px 0;
+}

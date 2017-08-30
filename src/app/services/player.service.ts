@@ -17,10 +17,7 @@ export class PlayerService {
 
   getAllPlayers(): Observable<Player[]> {
     // las peticiones http devuelven un observable al que luego debemos sucribirnos
-    console.log('busca los jugadores');
     const response = this.http.get(this.urlJson).map( res => res.json() );
-    console.log('Respuesta');
-    console.log(response);
     return response;
   }
 
@@ -31,7 +28,6 @@ export class PlayerService {
 
   emitirValor(players: Player[]): void {
     // toma el valor que envía por el canal
-    console.log(players);
     this.subject.next(this.players);
   }
 

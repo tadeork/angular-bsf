@@ -1,8 +1,27 @@
 {
     "players": [
-        { "id": 1, "name": "Diego", "age": 23, "team": "Team-A" },
-        { "id": 2, "name": "Ringo", "age": 23, "team": "Team-B" },
-        { "id": 3, "name": "Paul", "age": 23, "team": "Team-A" },
-        { "id": 4, "name": "George", "age": 23, "team": "Team-B" }
+        { 
+            "id": 1,
+            "place": 10,
+            "name": "Diego", 
+            "team": "Thundercats" 
+        },
+        { 
+            "id": 2, 
+            "name": "Ringo", 
+            "place": 2,
+            "team": "Skeletors" },
+        { 
+            "id": 3, 
+            "name": "Paul", 
+            "place": 4,
+            "team": "Thundercats" 
+        },
+        { 
+            "id": 4, 
+            "name": "George", 
+            "place": 6,
+            "team": "Skeletors" 
+        }
     ]
 }

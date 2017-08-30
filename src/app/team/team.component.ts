@@ -11,12 +11,13 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit, OnDestroy {
-  // recibe el nombre del team
+  // recibe el nombre del team desde el padre
   @Input() team: string;
   roster: Player[];
   subscription: Subscription[] = [];
   player: Player;
   newP: Boolean;
+  MAX = 11;
 
   constructor(private ps: PlayerService) {
     // this.teamName = 'team A';
@@ -24,11 +25,9 @@ export class TeamComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    console.log('inicia el componente');
     // al iniciar el componente obtiene los player desde el servicio
     const subscription = this.ps.getAllPlayers().subscribe( players => {
       this.roster = players;
-      console.log(players);
     });
   }
 
@@ -39,17 +38,29 @@ export class TeamComponent implements OnInit, OnDestroy {
 
   removePlayer(player: Player): void {
     this.roster.splice(player.id, 1);
-    console.log(this.roster);
     this.ps.emitirValor(this.roster);
   }
 
   addPlayer(player: Player): void {
-    this.roster.push(player);
-    this.ps.emitirValor(this.roster);
+    if (this.MAX <= 11) {
+      this.player = {
+        name: player.name,
+        place: player.place,
+        team: this.team
+      };
+      // el template nos envía un player directamente
+      console.log(this.team);
+      player.team = this.team;
+      this.roster.push(player);
+      this.ps.emitirValor(this.roster);
+    }
   }
 
   newPlayer(): void {
     this.newP = !this.newP;
   }
 
+  editPlayer(player: Player): void {
+    console.log('editar player');
+  }
 }
