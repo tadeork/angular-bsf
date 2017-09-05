@@ -3,16 +3,16 @@
 
   <h2>Equipo {{team}}</h2>
 
-  <button type="button" (click)="newPlayer()">Agregar</button>
+  <button class="formulario-player" type="button" (click)="newPlayer()">Formulario</button>
   <div *ngIf="newP">
-    <label name="name">Nombre</label> <input name="name" type="text" (ngModel)="player.name">
-    <label name="name">Lugar</label> <input name="place" type="text" (ngModel)="player.place">
+    <label name="name">Nombre</label> <input name="name" type="text" [(ngModel)]="player.name"><br>
+    <label name="name">Lugar</label> <input name="place" type="text" [(ngModel)]="player.place"><br>
     <button type="button" (click)="addPlayer()">Agregar</button>
   </div>
 
   <ul class="players">
     <!-- cada jugador debe ser editable -->
-    <li *ngFor="let player of roster | teams:team">
+    <li *ngFor="let player of roster | async | teams:team">
       <span class="badge">{{ player.place }}-</span> {{ player.name }}
       <button type="button" (click)="removePlayer(player)">Eliminar</button>
       <button type="button" (click)="editPlayer(player)">Editar</button>

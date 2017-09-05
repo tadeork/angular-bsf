@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Output, Input } from '@angular/core';
 import { Player } from '../models/Player';
 import { Team } from '../models/Team';
 
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { PlayerService } from '../services/player.service';
 
@@ -10,54 +11,54 @@ import { PlayerService } from '../services/player.service';
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.css']
 })
-export class TeamComponent implements OnInit, OnDestroy {
+export class TeamComponent implements OnInit {
   // recibe el nombre del team desde el padre
   @Input() team: string;
-  roster: Player[];
+  roster: Observable<Player[]>;
   subscription: Subscription[] = [];
   player: Player;
   newP: Boolean;
-  MAX = 11;
 
   constructor(private ps: PlayerService) {
-    // this.teamName = 'team A';
     this.newP = false;
-   }
+  }
 
   ngOnInit() {
     // al iniciar el componente obtiene los player desde el servicio
-    const subscription = this.ps.getAllPlayers().subscribe( players => {
-      this.roster = players;
-    });
+   // this.roster = this.ps.getObservables();
+   this.roster = this.ps.getAllPlayers();
+    // this.subscription = this.ps.getAllPlayers();
   }
 
-  // debemos desuscribirnos de los objetos observados
-  ngOnDestroy(): void {
-    this.subscription.forEach(sub => { sub.unsubscribe(); });
+  addPlayer(name: string, place: number): void {
+    let nPlayer: Player;
+    nPlayer = {
+      name: name,
+      place: place,
+      team: this.team
+    };
+
+    this.ps.addPlayer(nPlayer);
   }
 
   removePlayer(player: Player): void {
-    this.roster.splice(player.id, 1);
-    this.ps.emitirValor(this.roster);
+    this.ps.removePlayer(player);
   }
 
-  addPlayer(player: Player): void {
-    if (this.MAX <= 11) {
-      this.player = {
-        name: player.name,
-        place: player.place,
-        team: this.team
-      };
-      // el template nos envía un player directamente
-      console.log(this.team);
-      player.team = this.team;
-      this.roster.push(player);
-      this.ps.emitirValor(this.roster);
-    }
+  // como está bindeado al template cuando renderice la vista debería tener acceso
+  // al atributo después de esto sino tendrá un error. Además como es una interface
+  // es conveniente implementarlo en nuestro componente para evitar problemas.
+  takePlayer(): void {
+    this.player = {
+      name: '',
+      place: 0,
+      team: this.team
+    };
   }
 
   newPlayer(): void {
     this.newP = !this.newP;
+    this.takePlayer();
   }
 
   editPlayer(player: Player): void {
