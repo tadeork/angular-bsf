@@ -7,7 +7,7 @@
   <div *ngIf="newP">
     <label name="name">Nombre</label> <input name="name" type="text" [(ngModel)]="player.name"><br>
     <label name="name">Lugar</label> <input name="place" type="text" [(ngModel)]="player.place"><br>
-    <button type="button" (click)="addPlayer()">Agregar</button>
+    <button class="new-button" type="button" (click)="addPlayer()">Agregar</button>
   </div>
 
   <ul class="players">

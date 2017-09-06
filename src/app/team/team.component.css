@@ -1,10 +1,15 @@
 .team-btfl {
     float: left;
+    align-content: center;
     padding: 5px;
 }
 
 .team-btfl h2 {
     font-family: Arial;
+}
+
+.team-btfl .badge {
+
 }
 
 .team-btfl input {
