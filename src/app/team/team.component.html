@@ -11,6 +11,7 @@
   </div>
 
   <ul class="players">
+      {{ roster }}
     <!-- cada jugador debe ser editable -->
     <li *ngFor="let player of roster | async | teams:team">
       <span class="badge">{{ player.place }}-</span> {{ player.name }}

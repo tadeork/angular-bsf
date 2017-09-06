@@ -18,18 +18,27 @@ export class PlayerService {
     this.subject = new Subject<Player[]>();
   }
 
+  getAllPlayers(): Observable<Player[]> {
+    return this.http.get(this.urlJson).map(res => res.json());
+  }
+
+  /*
   getAllPlayers(): any {
     // las peticiones http devuelven un observable al que luego debemos sucribirnos
     let resp: any ;
     // resp = this.http.get(this.urlJson).map(response => response.json);
-    resp = this.http.get(this.urlJson).subscribe(response => response.json());
+    resp = this.http.get(this.urlJson).map((response) => {
+      response.json();
+      // console.log(response.json());
+    });
 
     console.log('getAllPlayers');
     this.subject.next(resp);
-    console.log(this.subject);
+    console.log(this.subject.subscribe());
     // return resp;
     return this.subject.asObservable();
   }
+  */
 
   // los componentes están suscriptos a través de este observable
   getObservables(): Observable<Player[]> {
