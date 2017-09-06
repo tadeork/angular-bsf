@@ -29,13 +29,10 @@ export class PlayerService {
     // resp = this.http.get(this.urlJson).map(response => response.json);
     resp = this.http.get(this.urlJson).map((response) => {
       response.json();
-      // console.log(response.json());
     });
 
     console.log('getAllPlayers');
     this.subject.next(resp);
-    console.log(this.subject.subscribe());
-    // return resp;
     return this.subject.asObservable();
   }
   */
@@ -47,7 +44,6 @@ export class PlayerService {
 
   emitirValor(players: Player[]): void {
     // toma el valor que envía por el canal
-    console.log('emite valor');
     this.subject.next(players);
   }
 

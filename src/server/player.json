@@ -22,6 +22,18 @@
             "name": "George", 
             "place": 6,
             "team": "Skeletors" 
+        },
+        { 
+            "id": 5, 
+            "name": "John", 
+            "place": 7,
+            "team": "Skeletors" 
+        },
+        { 
+            "id": 6, 
+            "name": "Messi", 
+            "place": 8,
+            "team": "Thundercats" 
         }
     ]
 }

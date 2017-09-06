@@ -1,3 +1,15 @@
-<p>
-  team-list works!
-</p>
+<div class="team-list">
+  <h1>{{ teamName }}</h1>
+  <table>
+    <thead>
+      <th>Nombre</th>
+      <th>Posición</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of listPlayers">
+        <td>{{ player.name }}</td>
+        <td>{{ player.place }}</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>
