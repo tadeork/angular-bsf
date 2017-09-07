@@ -18,6 +18,7 @@ export class TeamComponent implements OnInit {
   subscription: Subscription[] = [];
   player: Player;
   newP: Boolean;
+  formPlayer: Boolean;
 
   constructor(private ps: PlayerService) {
     this.newP = false;
@@ -57,11 +58,21 @@ export class TeamComponent implements OnInit {
   }
 
   newPlayer(): void {
-    this.newP = !this.newP;
+    this.formPlayer = !this.formPlayer;
+    this.newP = true;
     this.takePlayer();
   }
 
   editPlayer(player: Player): void {
-    console.log('editar player');
+    if (!this.newP) {
+      this.formPlayer = !this.formPlayer;
+    }
+    this.player = player;
+    this.newP = false;
+  }
+
+  savePlayer(player: Player): void {
+    this.roster.map( plr => plr.push(player) );
+    this.ps.emitirValor(this.roster);
   }
 }

@@ -4,10 +4,15 @@
   <h2>Equipo {{team}}</h2>
 
   <button class="formulario-player" type="button" (click)="newPlayer()">Formulario</button>
-  <div *ngIf="newP">
+  <div *ngIf="formPlayer">
     <label name="name">Nombre</label> <input name="name" type="text" [(ngModel)]="player.name"><br>
     <label name="name">Lugar</label> <input name="place" type="text" [(ngModel)]="player.place"><br>
-    <button class="new-button" type="button" (click)="addPlayer()">Agregar</button>
+
+    <button *ngIf="newP; else save_button" class="new-button" type="button" (click)="addPlayer()">Agregar</button>
+    
+    <ng-template #save_button> 
+      <button class="new-button" type="button" (click)="savePlayer()">Guardar</button>
+    </ng-template>
   </div>
 
   <ul class="players">

@@ -42,9 +42,11 @@ export class PlayerService {
     return this.subject;
   }
 
-  emitirValor(players: Player[]): void {
+  emitirValor(players: Observable<Player[]>): void {
     // toma el valor que envía por el canal
-    this.subject.next(players);
+    let roster = []; players.subscribe( plr => );
+    console.log(roster);
+    this.subject.next(roster);
   }
 
   addPlayer(player: Player): void {

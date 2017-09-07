@@ -30,7 +30,6 @@ export class TeamListComponent implements OnInit, OnDestroy {
     // llegan los datos en una estructura, es necesario filtrar y ordernar
     this.subscription = this.ps.getAllPlayers().subscribe( player => {
       const orderedList = _.groupBy( player,  'team');
-      console.log('Jugadores');
       this.listPlayers = orderedList[this.teamName].sort((a, b) => a.name > b.name);
     });
   }
