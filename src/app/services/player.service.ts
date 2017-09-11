@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 export class PlayerService {
   urlJson = 'http://localhost:3000/players';
   roster: Player[] = [];
-  // es importante instanciar el tipo de subject
   subject: Subject<Player[]> = new Subject() ;
   MAX = 11;
 
@@ -18,43 +17,41 @@ export class PlayerService {
     this.subject = new Subject<Player[]>();
   }
 
-  getAllPlayers(): Observable<Player[]> {
+  getAllPlayers_(): Observable<Player[]> {
     return this.http.get(this.urlJson).map(res => res.json());
   }
 
-  /*
-  getAllPlayers(): any {
-    // las peticiones http devuelven un observable al que luego debemos sucribirnos
-    let resp: any ;
-    // resp = this.http.get(this.urlJson).map(response => response.json);
-    resp = this.http.get(this.urlJson).map((response) => {
-      response.json();
+  getAllPlayers(): Observable<Player[]> {
+    this.http.get(this.urlJson).subscribe(res => {
+      this.subject.next(res.json());
+      this.roster = res.json();
     });
-
-    console.log('getAllPlayers');
-    this.subject.next(resp);
     return this.subject.asObservable();
   }
-  */
 
   // los componentes están suscriptos a través de este observable
   getObservables(): Observable<Player[]> {
-    return this.subject;
+    this.http.get(this.urlJson).subscribe(res => {
+      this.subject.next(res.json());
+      this.roster = res.json();
+    });
+    return this.subject.asObservable();
   }
 
-  emitirValor(players: Observable<Player[]>): void {
+  emitirValor(players: Player[]): void {
     // toma el valor que envía por el canal
-    let roster = []; players.subscribe( plr => );
-    console.log(roster);
-    this.subject.next(roster);
+   this.subject.next(players);
   }
 
   addPlayer(player: Player): void {
-   if (this.roster.length < this.MAX) {
+    this.roster.push(player);
+    this.subject.next(this.roster);
+    this.http.post(this.urlJson, player).subscribe();
+   /*if (this.roster.length <= this.MAX) {
       // el template nos envía un player directamente
       this.roster.push(player);
       this.subject.next(this.roster);
-    }
+    }*/
   }
 
   removePlayer(player: Player): void {

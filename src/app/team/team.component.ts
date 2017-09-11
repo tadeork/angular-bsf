@@ -15,6 +15,7 @@ export class TeamComponent implements OnInit {
   // recibe el nombre del team desde el padre
   @Input() team: string;
   roster: Observable<Player[]>;
+  players: Player[];
   subscription: Subscription[] = [];
   player: Player;
   newP: Boolean;
@@ -34,8 +35,8 @@ export class TeamComponent implements OnInit {
   addPlayer(name: string, place: number): void {
     let nPlayer: Player;
     nPlayer = {
-      name: name,
-      place: place,
+      name: this.player.name,
+      place: this.player.place,
       team: this.team
     };
 
@@ -71,8 +72,12 @@ export class TeamComponent implements OnInit {
     this.newP = false;
   }
 
-  savePlayer(player: Player): void {
-    this.roster.map( plr => plr.push(player) );
-    this.ps.emitirValor(this.roster);
+  savePlayer(): void {
+    console.log(this.player);
+    this.roster.subscribe( plr => {
+      this.players = plr;
+      this.players.push(this.player);
+      this.ps.emitirValor(this.players);
+    });
   }
 }
