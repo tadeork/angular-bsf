@@ -25,64 +25,34 @@
       "team": "Skeletors"
     },
     {
-      "id": 5,
-      "name": "John",
-      "place": 7,
-      "team": "Skeletors"
-    },
-    {
       "id": 6,
       "name": "Messi",
       "place": 8,
       "team": "Thundercats"
     },
     {
-      "name": "jh",
-      "place": "08",
+      "name": "John",
+      "place": "7",
       "team": "Thundercats",
       "id": 7
     },
     {
       "name": "Luca",
-      "place": 0,
+      "place": "4",
       "team": "Skeletors",
       "id": 8
     },
     {
-      "name": "John",
-      "place": "123",
+      "name": "Carina",
+      "place": "10",
       "team": "Skeletors",
-      "id": 9
-    },
-    {
-      "name": "Frank",
-      "place": "5",
-      "team": "Thundercats",
       "id": 10
     },
     {
-      "name": "Aldi",
-      "place": "10",
-      "team": "Thundercats",
-      "id": 11
-    },
-    {
-      "name": "Karina",
-      "place": "14",
-      "team": "Skeletors",
-      "id": 12
-    },
-    {
-      "name": "Marcelo",
-      "place": "4",
-      "team": "Skeletors",
-      "id": 13
-    },
-    {
-      "name": "Ricardo",
+      "name": "Juan",
       "place": "3",
-      "team": "Thundercats",
-      "id": 14
+      "team": "Skeletors",
+      "id": 11
     }
   ]
 }

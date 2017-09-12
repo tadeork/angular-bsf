@@ -27,25 +27,14 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() {
     // al iniciar el componente obtiene los player desde el servicio
-   // this.roster = this.ps.getObservables();
    this.roster = this.ps.getAllPlayers();
     // this.subscription = this.ps.getAllPlayers();
   }
 
-  addPlayer(name: string, place: number): void {
-    let nPlayer: Player;
-    nPlayer = {
-      name: this.player.name,
-      place: this.player.place,
-      team: this.team
-    };
-
-    this.ps.addPlayer(nPlayer);
-  }
-
   removePlayer(player: Player): void {
     this.ps.removePlayer(player);
-  }
+    this.roster = this.ps.getAllPlayers();
+   }
 
   // como está bindeado al template cuando renderice la vista debería tener acceso
   // al atributo después de esto sino tendrá un error. Además como es una interface
@@ -72,12 +61,23 @@ export class TeamComponent implements OnInit {
     this.newP = false;
   }
 
+  addPlayer(name: string, place: number): void {
+    let nPlayer: Player;
+    nPlayer = {
+      name: this.player.name,
+      place: this.player.place,
+      team: this.team
+    };
+
+    this.ps.addPlayer(nPlayer);
+  }
+
   savePlayer(): void {
-    console.log(this.player);
+    this.ps.updatePlayer(this.player);
     this.roster.subscribe( plr => {
       this.players = plr;
       this.players.push(this.player);
-      this.ps.emitirValor(this.players);
     });
+    this.formPlayer = !this.formPlayer;
   }
 }

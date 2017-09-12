@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Player } from '../models/Player';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -10,11 +10,16 @@ export class PlayerService {
   urlJson = 'http://localhost:3000/players';
   roster: Player[] = [];
   subject: Subject<Player[]> = new Subject() ;
+  headers: Headers;
+  options: RequestOptions;
   MAX = 11;
 
   constructor(private http: Http) {
     // llena la lista de players a partir de un repositorio
     this.subject = new Subject<Player[]>();
+    this.headers = new Headers({'Content-type': 'application/json',
+                                'Accept': 'q=0.8;application/json;q=0.9'});
+    this.options = new RequestOptions({ headers: this.headers });
   }
 
   getAllPlayers_(): Observable<Player[]> {
@@ -38,11 +43,6 @@ export class PlayerService {
     return this.subject.asObservable();
   }
 
-  emitirValor(players: Player[]): void {
-    // toma el valor que envía por el canal
-   this.subject.next(players);
-  }
-
   addPlayer(player: Player): void {
     this.roster.push(player);
     this.subject.next(this.roster);
@@ -56,7 +56,13 @@ export class PlayerService {
 
   removePlayer(player: Player): void {
     this.roster.splice(player.id, 1);
+    this.http.delete(`${this.urlJson}/${player.id}`).subscribe();
     this.subject.next(this.roster);
+  }
+
+  updatePlayer(player: Player): void {
+    const body = JSON.stringify(player);
+   this.http.patch(`${this.urlJson}/${player.id}`, body, this.options).subscribe();
   }
 
 }
